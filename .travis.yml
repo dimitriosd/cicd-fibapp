@@ -51,7 +51,7 @@ deploy:
     docker push registry.heroku.com/cicd-fibapp/nginx;
     docker push registry.heroku.com/cicd-fibapp/api;
     docker push registry.heroku.com/cicd-fibapp/worker;
-    heroku container:release client nginx api worker --app cicd-fibapp
+    heroku container:release client nginx api worker --app cicd-fibapp;
   on:
     branch: master
 #deploy:
