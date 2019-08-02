@@ -1,0 +1,18 @@
+{
+  "name": "cicd-fibapp-redis",
+  "version": "1.0.0",
+  "description": "Simple fibonacci calculator using CI-CD - Redis server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
+  },
+  "author": "Dimitrios Douras",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
+}
