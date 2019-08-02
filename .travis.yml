@@ -38,6 +38,10 @@ after_success:
   - docker push dimitriosd/multi-cicd-fibapp-nginx
   - docker push dimitriosd/multi-cicd-fibapp-server
   - docker push dimitriosd/multi-cicd-fibapp-redis
+  - (
+    echo "$HEROKU_CREDENTIALS_EMAIL"
+    echo "$HEROKU_CREDENTIALS_PASSWORD"
+    ) | heroku login
 #deploy:
 #  provider: heroku
 #  api_key:
