@@ -29,15 +29,24 @@ before_install:
 script:
 - docker run -e CI=true dimitriosd/cicd-fibapp-ui npm test -- --coverage
 after_success:
-  - docker build -t dimitriosd/multi-cicd-fibapp-ui ./cicd-fibapp-ui
-  - docker build -t dimitriosd/multi-cicd-fibapp-nginx ./nginx
-  - docker build -t dimitriosd/multi-cicd-fibapp-server ./cicd-fibapp-server
-  - docker build -t dimitriosd/multi-cicd-fibapp-redis ./cicd-fibapp-redis
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push dimitriosd/multi-cicd-fibapp-ui
-  - docker push dimitriosd/multi-cicd-fibapp-nginx
-  - docker push dimitriosd/multi-cicd-fibapp-server
-  - docker push dimitriosd/multi-cicd-fibapp-redis
+#  - docker build -t dimitriosd/multi-cicd-fibapp-ui ./cicd-fibapp-ui
+#  - docker build -t dimitriosd/multi-cicd-fibapp-nginx ./nginx
+#  - docker build -t dimitriosd/multi-cicd-fibapp-server ./cicd-fibapp-server
+#  - docker build -t dimitriosd/multi-cicd-fibapp-redis ./cicd-fibapp-redis
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#  - docker push dimitriosd/multi-cicd-fibapp-ui
+#  - docker push dimitriosd/multi-cicd-fibapp-nginx
+#  - docker push dimitriosd/multi-cicd-fibapp-server
+#  - docker push dimitriosd/multi-cicd-fibapp-redis
+  - echo "$HEROKU_AUTH_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+  - docker build -t registry.heroku.com/cicd-fibapp/client ./cicd-fibapp-ui
+  - docker build -t registry.heroku.com/cicd-fibapp/nginx ./nginx
+  - docker build -t registry.heroku.com/cicd-fibapp/api ./cicd-fibapp-server
+  - docker build -t registry.heroku.com/cicd-fibapp/worker ./cicd-fibapp-redis
+  - docker push registry.heroku.com/cicd-fibapp/client
+  - docker push registry.heroku.com/cicd-fibapp/nginx
+  - docker push registry.heroku.com/cicd-fibapp/api
+  - docker push registry.heroku.com/cicd-fibapp/worker
 deploy:
   provider: script
   script: bash docker_push
