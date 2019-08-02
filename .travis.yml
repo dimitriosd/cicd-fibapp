@@ -1,26 +1,3 @@
-#sudo: required
-#services:
-#  - docker
-#
-#before_install:
-#  - docker build -t dimitriosd/cicd-react -f Dockerfile.dev .
-#
-#script:
-#  - docker run -e CI=true dimitriosd/cicd-react npm run test -- --coverage
-#
-#deploy:
-#  provider: elasticbeanstalk
-#  region: "eu-central-1"
-#  app: "cicd-react"
-#  env: "CicdReact-env"
-#  bucket_name: "elasticbeanstalk-eu-central-1-226761018526"
-#  bucket_path: "cicd-react"
-#  on:
-#    branch: master
-#  access_key_id: $AWS_ACCESS_KEY
-#  secret_access_key:
-#    secure: "$AWS_SECRET_KEY"
-
 sudo: required
 services:
 - docker
@@ -29,48 +6,19 @@ before_install:
 script:
 - docker run -e CI=true dimitriosd/cicd-fibapp-ui npm test -- --coverage
 after_success:
-#  - docker build -t dimitriosd/multi-cicd-fibapp-ui ./cicd-fibapp-ui
-#  - docker build -t dimitriosd/multi-cicd-fibapp-nginx ./nginx
-#  - docker build -t dimitriosd/multi-cicd-fibapp-server ./cicd-fibapp-server
-#  - docker build -t dimitriosd/multi-cicd-fibapp-redis ./cicd-fibapp-redis
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#  - docker push dimitriosd/multi-cicd-fibapp-ui
-#  - docker push dimitriosd/multi-cicd-fibapp-nginx
-#  - docker push dimitriosd/multi-cicd-fibapp-server
-#  - docker push dimitriosd/multi-cicd-fibapp-redis
-  - docker build -t registry.heroku.com/cicd-fibapp/client ./cicd-fibapp-ui
-  - docker build -t registry.heroku.com/cicd-fibapp/nginx ./nginx
-  - docker build -t registry.heroku.com/cicd-fibapp/api ./cicd-fibapp-server
-  - docker build -t registry.heroku.com/cicd-fibapp/worker ./cicd-fibapp-redis
-  - echo "$HEROKU_AUTH_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
-  - docker push registry.heroku.com/cicd-fibapp/client
-  - docker push registry.heroku.com/cicd-fibapp/nginx
-  - docker push registry.heroku.com/cicd-fibapp/api
-  - docker push registry.heroku.com/cicd-fibapp/worker
-  - ( echo "$HEROKU_EMAIL" echo "$HEROKU_PASSWORD" ) | heroku login
-  - heroku container:release client nginx api worker --app cicd-fibapp
-#deploy:
-#  provider: script
-#  script: bash docker_push
-#  on:
-#    branch: master
-#  - (
-#    echo "$HEROKU_CREDENTIALS_EMAIL"
-#    echo "$HEROKU_CREDENTIALS_PASSWORD"
-#    ) | heroku login
-#  - docker tag dimitriosd/multi-cicd-fibapp-ui registry.heroku.com/cicd-fibapp/ui
-#  - docker push registry.heroku.com/cicd-fibapp/ui
-#  - docker tag dimitriosd/multi-cicd-fibapp-nginx registry.heroku.com/cicd-fibapp/nginx
-#  - docker push registry.heroku.com/cicd-fibapp/nginx
-#  - docker tag dimitriosd/multi-cicd-fibapp-server registry.heroku.com/cicd-fibapp/server
-#  - docker push registry.heroku.com/cicd-fibapp/server
-#  - docker tag dimitriosd/multi-cicd-fibapp-redis registry.heroku.com/cicd-fibapp/redis
-#  - docker push registry.heroku.com/cicd-fibapp/redis
-#  - heroku container:release ui nginx server redis
-#deploy:
-#  provider: heroku
-#  api_key:
-#    secure: SeCKUYFSlwEhxL55V69k0YKNRP5aoM1l6GF/7YsOcWcE17CnDuccIi8BbJtYdakRq2/qPaT58dX+CRFAICSTikReiJgYSZI/V3aOFhr0Dk6Speg/qAT8wAcWT6d8v0hkrWZBr2ARxR0Y/ZJhxOQA5IM16f2QWQitBloGKkoFz3+NraBXTV+2RWDzo2Pu5Tm8ZEmubg5tIt84abSxR6XKP+IYGbBVcuNCDUcFQBf698AnFzJrr0tn+O+FSNhNGtu0JaEzQns5W/6VszjsUpT3tn/kE1OhnycA1A+jso18iEg6rd3uCA6TPQt1jzeJxQ5M9FLMw69YMcMmCRk5TKBCFowtHXQG21APmeD9/6jUeD47/s7DxM0TqqmCSK/cX7ivh16wDStwPIKL77qyJqHCPn7BGNvO5qLSMYLWQCYG12ccVmdyVf+K6VjL99zsXGe681TeFvwPCOceg7DU7WBLk7N/iGlpdM6ZVCuVIIuHMuswm0rjf9LhNA0mcbFSgFDalmfauYbkTb2x77epaqznS4Y4JOCbIerLn4Mb37++UqfVj6x0bglNy5nDvypQrvQ/D029QnDFgPSZRKlGdNgOO7KkXRru7+/w/PRJTwwMxtvUQsoj64wITx7bdmUs9jczib79CKcRnzpiox+A3YQt5fAxjlvU2Yi1pQ2pfiL8P78=
-#  app: cicd-react
-#  on:
-#    branch: master
+- docker build -t registry.heroku.com/cicd-fibapp/client ./cicd-fibapp-ui
+- docker build -t registry.heroku.com/cicd-fibapp/nginx ./nginx
+- docker build -t registry.heroku.com/cicd-fibapp/api ./cicd-fibapp-server
+- docker build -t registry.heroku.com/cicd-fibapp/worker ./cicd-fibapp-redis
+- echo "$HEROKU_AUTH_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+- docker push registry.heroku.com/cicd-fibapp/client
+- docker push registry.heroku.com/cicd-fibapp/nginx
+- docker push registry.heroku.com/cicd-fibapp/api
+- docker push registry.heroku.com/cicd-fibapp/worker
+- (echo "$HEROKU_EMAIL" echo "$HEROKU_PASSWORD") | heroku login
+- heroku container:release client nginx api worker --app cicd-fibapp
+deploy:
+  provider: script
+  api_key:
+    secure: jrP/ydOkdsGjYw3K4A2yJAU32j9+kQNLEeU1jYvfREyQM4EC6wHiYbNEo7RpUX0BC87xjJUUALtmsXvPgcS5ykRzssGgcVqts5Hk0Vl0Qsec+oo8GgV25ULBaDU+6rM8D5089gba7vpr9TSDXlQqi+A4ebdtEty+8s5J7kK9UwDwCu6YQmjQnsbZBjibdSEInpQp0exWJK3dluBbLNggvnIWI3lOsuIUkV6v129f6qlchjIOV+jMwNy7HbRmfVVytPmTVtcDahXO2wKJHtSh5oR4X+s/Qy3+js0b21XWkDv/9hVU+bP/o+LgkaUsKvc0Ve2HKKj3qO0gckJB0INRKiM2svgr6OQL/8r9n3jAFiitXl1KhuTnzG46Lpii58mZqB0c7tE9JLB3gJbLBJYVJZAAG0rgtdpHGSV+JUZqs6ChTowgbnyOY9aBQ1zMtRVrpamode0urDbFuNY1Na48Lp3avkjySSHq1r9aE/1DqltPt00rdLhSZljZMz/uCVGliD0iCKJTcCoKa3jL30k5/3DJcO2LhRr8HWZBMfeIZbfzhbdMh38uNuYywCd9br5GIfmaFKQ7xdJcaIwMmrTKz7X77JWIKvTOJ1LvBeQDYNO1AigNTC63ZpcyhFayAbAE6ui8l3v8MJhhlwDwgFPxlWFJ8E/flkQC8CJTM2S7xlk=
+  script: heroku container:release client nginx api worker --app cicd-fibapp;
