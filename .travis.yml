@@ -47,11 +47,11 @@ after_success:
   - docker push registry.heroku.com/cicd-fibapp/nginx
   - docker push registry.heroku.com/cicd-fibapp/api
   - docker push registry.heroku.com/cicd-fibapp/worker
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: master
+#deploy:
+#  provider: script
+#  script: bash docker_push
+#  on:
+#    branch: master
 #  - (
 #    echo "$HEROKU_CREDENTIALS_EMAIL"
 #    echo "$HEROKU_CREDENTIALS_PASSWORD"
