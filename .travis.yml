@@ -42,10 +42,14 @@ after_success:
     echo "$HEROKU_CREDENTIALS_EMAIL"
     echo "$HEROKU_CREDENTIALS_PASSWORD"
     ) | heroku login
-  - docker push registry.heroku.com/cicd-fibapp/ui dimitriosd/multi-cicd-fibapp-ui
-  - docker push registry.heroku.com/cicd-fibapp/nginx dimitriosd/multi-cicd-fibapp-nginx
-  - docker push registry.heroku.com/cicd-fibapp/server dimitriosd/multi-cicd-fibapp-server
-  - docker push registry.heroku.com/cicd-fibapp/redis dimitriosd/multi-cicd-fibapp-redis
+  - docker tag dimitriosd/multi-cicd-fibapp-ui registry.heroku.com/cicd-fibapp/ui
+  - docker push registry.heroku.com/cicd-fibapp/ui
+  - docker tag dimitriosd/multi-cicd-fibapp-nginx registry.heroku.com/cicd-fibapp/nginx
+  - docker push registry.heroku.com/cicd-fibapp/nginx
+  - docker tag dimitriosd/multi-cicd-fibapp-server registry.heroku.com/cicd-fibapp/server
+  - docker push registry.heroku.com/cicd-fibapp/server
+  - docker tag dimitriosd/multi-cicd-fibapp-redis registry.heroku.com/cicd-fibapp/redis
+  - docker push registry.heroku.com/cicd-fibapp/redis
   - heroku container:release ui nginx server redis
 #deploy:
 #  provider: heroku
