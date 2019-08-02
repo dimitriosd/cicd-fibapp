@@ -46,10 +46,10 @@ after_success:
 deploy:
   provider: script
   script:
-    docker push registry.heroku.com/cicd-fibapp/client
-    docker push registry.heroku.com/cicd-fibapp/nginx
-    docker push registry.heroku.com/cicd-fibapp/api
-    docker push registry.heroku.com/cicd-fibapp/worker
+    docker push registry.heroku.com/cicd-fibapp/client;
+    docker push registry.heroku.com/cicd-fibapp/nginx;
+    docker push registry.heroku.com/cicd-fibapp/api;
+    docker push registry.heroku.com/cicd-fibapp/worker;
     heroku container:release client nginx api worker --app cicd-fibapp
   on:
     branch: master
