@@ -38,10 +38,10 @@ after_success:
   - docker push dimitriosd/multi-cicd-fibapp-nginx
   - docker push dimitriosd/multi-cicd-fibapp-server
   - docker push dimitriosd/multi-cicd-fibapp-redis
-deploy:
-  provider: heroku
-  api_key:
-    secure: SeCKUYFSlwEhxL55V69k0YKNRP5aoM1l6GF/7YsOcWcE17CnDuccIi8BbJtYdakRq2/qPaT58dX+CRFAICSTikReiJgYSZI/V3aOFhr0Dk6Speg/qAT8wAcWT6d8v0hkrWZBr2ARxR0Y/ZJhxOQA5IM16f2QWQitBloGKkoFz3+NraBXTV+2RWDzo2Pu5Tm8ZEmubg5tIt84abSxR6XKP+IYGbBVcuNCDUcFQBf698AnFzJrr0tn+O+FSNhNGtu0JaEzQns5W/6VszjsUpT3tn/kE1OhnycA1A+jso18iEg6rd3uCA6TPQt1jzeJxQ5M9FLMw69YMcMmCRk5TKBCFowtHXQG21APmeD9/6jUeD47/s7DxM0TqqmCSK/cX7ivh16wDStwPIKL77qyJqHCPn7BGNvO5qLSMYLWQCYG12ccVmdyVf+K6VjL99zsXGe681TeFvwPCOceg7DU7WBLk7N/iGlpdM6ZVCuVIIuHMuswm0rjf9LhNA0mcbFSgFDalmfauYbkTb2x77epaqznS4Y4JOCbIerLn4Mb37++UqfVj6x0bglNy5nDvypQrvQ/D029QnDFgPSZRKlGdNgOO7KkXRru7+/w/PRJTwwMxtvUQsoj64wITx7bdmUs9jczib79CKcRnzpiox+A3YQt5fAxjlvU2Yi1pQ2pfiL8P78=
-  app: cicd-react
-  on:
-    branch: master
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: SeCKUYFSlwEhxL55V69k0YKNRP5aoM1l6GF/7YsOcWcE17CnDuccIi8BbJtYdakRq2/qPaT58dX+CRFAICSTikReiJgYSZI/V3aOFhr0Dk6Speg/qAT8wAcWT6d8v0hkrWZBr2ARxR0Y/ZJhxOQA5IM16f2QWQitBloGKkoFz3+NraBXTV+2RWDzo2Pu5Tm8ZEmubg5tIt84abSxR6XKP+IYGbBVcuNCDUcFQBf698AnFzJrr0tn+O+FSNhNGtu0JaEzQns5W/6VszjsUpT3tn/kE1OhnycA1A+jso18iEg6rd3uCA6TPQt1jzeJxQ5M9FLMw69YMcMmCRk5TKBCFowtHXQG21APmeD9/6jUeD47/s7DxM0TqqmCSK/cX7ivh16wDStwPIKL77qyJqHCPn7BGNvO5qLSMYLWQCYG12ccVmdyVf+K6VjL99zsXGe681TeFvwPCOceg7DU7WBLk7N/iGlpdM6ZVCuVIIuHMuswm0rjf9LhNA0mcbFSgFDalmfauYbkTb2x77epaqznS4Y4JOCbIerLn4Mb37++UqfVj6x0bglNy5nDvypQrvQ/D029QnDFgPSZRKlGdNgOO7KkXRru7+/w/PRJTwwMxtvUQsoj64wITx7bdmUs9jczib79CKcRnzpiox+A3YQt5fAxjlvU2Yi1pQ2pfiL8P78=
+#  app: cicd-react
+#  on:
+#    branch: master
