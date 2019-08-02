@@ -47,7 +47,7 @@ after_success:
   - docker push registry.heroku.com/cicd-fibapp/nginx
   - docker push registry.heroku.com/cicd-fibapp/api
   - docker push registry.heroku.com/cicd-fibapp/worker
-  - echo "$HEROKU_AUTH_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
+  - heroku container:login
   - heroku container:release client nginx api worker --app cicd-fibapp
 #deploy:
 #  provider: script
