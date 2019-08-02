@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker push dimitriosd/multi-cicd-fibapp-ui registry.heroku.com
+docker push dimitriosd/multi-cicd-fibapp-nginx registry.heroku.com
+docker push dimitriosd/multi-cicd-fibapp-server registry.heroku.com
+docker push dimitriosd/multi-cicd-fibapp-redis registry.heroku.com
