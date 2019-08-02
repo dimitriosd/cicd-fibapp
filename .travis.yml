@@ -1,0 +1,47 @@
+#sudo: required
+#services:
+#  - docker
+#
+#before_install:
+#  - docker build -t dimitriosd/cicd-react -f Dockerfile.dev .
+#
+#script:
+#  - docker run -e CI=true dimitriosd/cicd-react npm run test -- --coverage
+#
+#deploy:
+#  provider: elasticbeanstalk
+#  region: "eu-central-1"
+#  app: "cicd-react"
+#  env: "CicdReact-env"
+#  bucket_name: "elasticbeanstalk-eu-central-1-226761018526"
+#  bucket_path: "cicd-react"
+#  on:
+#    branch: master
+#  access_key_id: $AWS_ACCESS_KEY
+#  secret_access_key:
+#    secure: "$AWS_SECRET_KEY"
+
+sudo: required
+services:
+- docker
+before_install:
+- docker build -t dimitriosd/cicd-fibapp-ui -f ./cicd-fibapp-ui/Dockerfile.dev ./cicd-fibapp-ui
+script:
+- docker run -e CI=true dimitriosd/cicd-fibapp-ui npm test -- --coverage
+after_success:
+  - docker build -t dimitriosd/multi-cicd-fibapp-ui ./cicd-fibapp-ui
+  - docker build -t dimitriosd/multi-cicd-fibapp-nginx ./nginx
+  - docker build -t dimitriosd/multi-cicd-fibapp-server ./cicd-fibapp-server
+  - docker build -t dimitriosd/multi-cicd-fibapp-redis ./cicd-fibapp-redis
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push dimitriosd/multi-cicd-fibapp-ui
+  - docker push dimitriosd/multi-cicd-fibapp-nginx
+  - docker push dimitriosd/multi-cicd-fibapp-server
+  - docker push dimitriosd/multi-cicd-fibapp-redis
+deploy:
+  provider: heroku
+  api_key:
+    secure: SeCKUYFSlwEhxL55V69k0YKNRP5aoM1l6GF/7YsOcWcE17CnDuccIi8BbJtYdakRq2/qPaT58dX+CRFAICSTikReiJgYSZI/V3aOFhr0Dk6Speg/qAT8wAcWT6d8v0hkrWZBr2ARxR0Y/ZJhxOQA5IM16f2QWQitBloGKkoFz3+NraBXTV+2RWDzo2Pu5Tm8ZEmubg5tIt84abSxR6XKP+IYGbBVcuNCDUcFQBf698AnFzJrr0tn+O+FSNhNGtu0JaEzQns5W/6VszjsUpT3tn/kE1OhnycA1A+jso18iEg6rd3uCA6TPQt1jzeJxQ5M9FLMw69YMcMmCRk5TKBCFowtHXQG21APmeD9/6jUeD47/s7DxM0TqqmCSK/cX7ivh16wDStwPIKL77qyJqHCPn7BGNvO5qLSMYLWQCYG12ccVmdyVf+K6VjL99zsXGe681TeFvwPCOceg7DU7WBLk7N/iGlpdM6ZVCuVIIuHMuswm0rjf9LhNA0mcbFSgFDalmfauYbkTb2x77epaqznS4Y4JOCbIerLn4Mb37++UqfVj6x0bglNy5nDvypQrvQ/D029QnDFgPSZRKlGdNgOO7KkXRru7+/w/PRJTwwMxtvUQsoj64wITx7bdmUs9jczib79CKcRnzpiox+A3YQt5fAxjlvU2Yi1pQ2pfiL8P78=
+  app: cicd-react
+  on:
+    branch: master
