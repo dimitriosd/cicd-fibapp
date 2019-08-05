@@ -3,7 +3,15 @@
   "containerDefinitions": [
     {
       "name": "cicd-fibapp-ui",
-      "image": ""
+      "image": "dimitriosd/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "cicd-fibapp-server",
+      "image": "dimitriosd/multi-api",
+      "hostname": "api",
+      "essential": false
     }
   ]
 }

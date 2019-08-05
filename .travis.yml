@@ -8,7 +8,7 @@ script:
 after_success:
 - docker build -t dimitriosd/multi-client ./cicd-fibapp-ui
 - docker build -t dimitriosd/multi-nginx ./nginx
-- docker build -t dimitriosd/multi-apiapi ./cicd-fibapp-server
+- docker build -t dimitriosd/multi-api ./cicd-fibapp-server
 - docker build -t dimitriosd/multi-worker ./cicd-fibapp-redis
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 - docker push dimitriosd/multi-client
