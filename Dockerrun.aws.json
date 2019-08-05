@@ -2,21 +2,21 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "cicd-fibapp-ui",
+      "name": "client",
       "image": "dimitriosd/multi-client",
       "hostname": "client",
       "essential": false,
       "memory": 128
     },
     {
-      "name": "cicd-fibapp-server",
+      "name": "api",
       "image": "dimitriosd/multi-api",
       "hostname": "api",
       "essential": false,
       "memory": 128
     },
     {
-      "name": "cicd-fibapp-redis",
+      "name": "worker",
       "image": "dimitriosd/multi-worker",
       "hostname": "worker",
       "essential": false,
