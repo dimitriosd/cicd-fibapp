@@ -12,6 +12,25 @@
       "image": "dimitriosd/multi-api",
       "hostname": "api",
       "essential": false
+    },
+    {
+      "name": "cicd-fibapp-redis",
+      "image": "dimitriosd/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "dimitriosd/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
     }
   ]
 }
