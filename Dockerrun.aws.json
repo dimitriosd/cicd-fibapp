@@ -1,6 +1,9 @@
 {
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
-
+    {
+      "name": "cicd-fibapp-ui",
+      "image": ""
+    }
   ]
 }
