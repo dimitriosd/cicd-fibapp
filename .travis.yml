@@ -2,26 +2,16 @@ sudo: required
 services:
 - docker
 before_install:
-- docker build -t dimitriosd/cicd-fibapp-ui -f ./cicd-fibapp-ui/Dockerfile.dev ./cicd-fibapp-ui
+- docker build -t dimitriosd/cicd-fibapp-ui-test -f ./cicd-fibapp-ui/Dockerfile.dev ./cicd-fibapp-ui
 script:
-- docker run -e CI=true dimitriosd/cicd-fibapp-ui npm test -- --coverage
+- docker run -e CI=true dimitriosd/cicd-fibapp-ui-test npm test -- --coverage
 after_success:
-- docker build -t registry.heroku.com/cicd-fibapp/client ./cicd-fibapp-ui
-- docker build -t registry.heroku.com/cicd-fibapp/nginx ./nginx
-- docker build -t registry.heroku.com/cicd-fibapp/api ./cicd-fibapp-server
-- docker build -t registry.heroku.com/cicd-fibapp/worker ./cicd-fibapp-redis
-- echo "$HEROKU_AUTH_TOKEN" | docker login -u "_" --password-stdin registry.heroku.com
-- docker push registry.heroku.com/cicd-fibapp/client
-- docker push registry.heroku.com/cicd-fibapp/nginx
-- docker push registry.heroku.com/cicd-fibapp/api
-- docker push registry.heroku.com/cicd-fibapp/worker
-deploy:
-  provider: script
-  api_key:
-    secure: "ePS3Mzw5gX7iTrSIkoiUSPkYkm5SWgXQDoGa7NBEHHQ2OqM/0pP8zuVdv736H1Htrvqi5tQ5eXTfiGCBL56Rg8WH3u7e2yLW+PsAuuD5lwbU7Z3hCr/21SMTfpbbMLXp1AGo7M7a/T4A1OgiF8mKEXX+HXN3YbHBqt6UdA5XpAcML5W359C0NhQk6TUONm7WZVMlEU18+QhPuDdODqYxXuRRIoLs6csKapT/GOmP0RcqeMPo02gVRYNhMFY0ZHLpePLd8VT8lWe9pyJ/OvDdR9BeKPi0N0n8DASt0MXsC0mtb353hGNxC1m3J9xR6yjV/wwBWPiBPiCLzbwoJrEfRAv0A85OW1xemO+GxB8i6cATYUjjn8waLqQ8zFPSB+Wq9/Yi+GnY7GVuXN9gIMf501B4I/6OR7CyO5fdJ5cutBgnSbShsHoPgu6Euhrmi1gAhZd58H/mPg7R4riCdWfhaKQcGQpBzpgRmvGquHog4KAEMbOokrUA/Il5XtuaIyTVm31MU30kDm/XkUF6gojxM6a1PsxKo8DlROE97+XIZ0xnQCF9siVey0S2exCA+aTb7oMHD/qrhguSuwKZalypTGTWQDDvplsxnqLp0i3wjcXyvDWj0QpWwlfuPYhcxdXAsWStcUoZRRnNgQeZOTFvDU4EF3XsU3QAdWJEVRrC2vo="
-  script:
-    heroku container:release client nginx api worker --app cicd-fibapp;
-  app:
-    cicd-fibapp
-  on:
-    branch: master
+- docker build -t dimitriosd/cicd-fibapp/client ./cicd-fibapp-ui
+- docker build -t dimitriosd/cicd-fibapp/nginx ./nginx
+- docker build -t dimitriosd/cicd-fibapp/api ./cicd-fibapp-server
+- docker build -t dimitriosd/cicd-fibapp/worker ./cicd-fibapp-redis
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+- docker push dimitriosd/cicd-fibapp/client
+- docker push dimitriosd/cicd-fibapp/nginx
+- docker push dimitriosd/cicd-fibapp/api
+- docker push dimitriosd/cicd-fibapp/worker
